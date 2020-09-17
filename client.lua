@@ -23,10 +23,10 @@ local smallDogModels = {
 
 -- Create a list of all dog models from both lists
 local dogModels = {}
-for _, value in bigDogModels do
+for _, value in pairs(bigDogModels) do
 	dogModels[#dogModels + 1] = value
 end
-for _, value in smallDogModels do
+for _, value in pairs(smallDogModels) do
 	dogModels[#dogModels + 1] = value
 end
 
