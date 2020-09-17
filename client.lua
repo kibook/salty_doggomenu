@@ -1,4 +1,4 @@
-local animations = {
+local bigDogAnimations = {
 	{ dictionary = "creatures@rottweiler@amb@sleep_in_kennel@", animation = "sleep_in_kennel", name = "Lay Down", },
 	{ dictionary = "creatures@rottweiler@amb@world_dog_barking@idle_a", animation = "idle_a", name = "Bark", },
 	{ dictionary = "creatures@rottweiler@amb@world_dog_sitting@base", animation = "base", name = "Sit", },
@@ -9,9 +9,26 @@ local animations = {
 	{ dictionary = "creatures@rottweiler@swim@", animation = "swim", name = "Swim", },
 }
 
-local dogModels = {
-	"a_c_shepherd", "a_c_rottweiler", "a_c_husky", "a_c_poodle", "a_c_pug", "a_c_westy", "a_c_retriever"
+local smallDogAnimations = {
+	{ dictionary = "creatures@pug@amb@world_dog_sitting@idle_a", animation = "idle_a", name = "Sit"}
 }
+
+local bigDogModels = {
+	"a_c_shepherd", "a_c_rottweiler", "a_c_husky", "a_c_retriever"
+}
+
+local smallDogModels = {
+	"a_c_poodle", "a_c_pug", "a_c_westy"
+}
+
+-- Create a list of all dog models from both lists
+local dogModels = {}
+for _, value in bigDogModels do
+	dogModels[#dogModels + 1] = value
+end
+for _, value in smallDogModels do
+	dogModels[#dogModels + 1] = value
+end
 
 local emotePlaying = false
 
@@ -19,6 +36,16 @@ function isDog()
 	local playerModel = GetEntityModel(GetPlayerPed(-1))
 	for i=1, #dogModels, 1 do
 		if GetHashKey(dogModels[i]) == playerModel then
+			return true
+		end
+	end
+	return false
+end
+
+function isSmallDog()
+	local playerModel = GetEntityModel(GetPlayerPed(-1))
+	for i=1, #smallDogModels, 1 do
+		if GetHashKey(smallDogModels[i]) == playerModel then
 			return true
 		end
 	end
@@ -47,8 +74,10 @@ Citizen.CreateThread(function()
 
 	while true do
 		Citizen.Wait(0)
-		
+
 		if WarMenu.IsMenuOpened('dogmenu') then
+			local animations = (isSmallDog() and smallDogAnimations or bigDogAnimations)
+
 			for i=1, #animations, 1 do
 				if WarMenu.Button(animations[i].name) then
 					playAnimation(animations[i].dictionary, animations[i].animation)
@@ -68,7 +97,7 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 		if not WarMenu.IsMenuOpened('dogmenu') and IsControlJustReleased(0, 244) and isDog() then
 			WarMenu.OpenMenu('dogmenu')
-		end		
+		end
 		if emotePlaying then
             if (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
                 cancelEmote()
