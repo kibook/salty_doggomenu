@@ -10,11 +10,13 @@ local bigDogAnimations = {
 }
 
 local smallDogAnimations = {
-	{ dictionary = "creatures@pug@amb@world_dog_sitting@idle_a", animation = "idle_a", name = "Sit"}
+	{ dictionary = "creatures@pug@amb@world_dog_sitting@idle_a", animation = "idle_a", name = "Itch"},
+	{ dictionary = "creatures@pug@amb@world_dog_sitting@idle_a", animation = "idle_b", name = "Sit"},
+	{ dictionary = "creatures@pug@amb@world_dog_sitting@idle_a", animation = "idle_c", name = "Lay Down"}
 }
 
 local bigDogModels = {
-	"a_c_shepherd", "a_c_rottweiler", "a_c_husky", "a_c_retriever"
+	"a_c_shepherd", "a_c_rottweiler", "a_c_husky", "a_c_retriever", "a_c_chop"
 }
 
 local smallDogModels = {
