@@ -1,3 +1,5 @@
+local doggoMenuControl = 244
+
 local bigDogAnimations = {
 	{ dictionary = "creatures@rottweiler@amb@sleep_in_kennel@", animation = "sleep_in_kennel", name = "Lay Down", },
 	{ dictionary = "creatures@rottweiler@amb@world_dog_barking@idle_a", animation = "idle_a", name = "Bark", },
@@ -105,7 +107,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		if not WarMenu.IsMenuOpened('dogmenu') and IsControlJustReleased(0, 244) and isDog() then
+		if not WarMenu.IsMenuOpened('dogmenu') and IsControlJustReleased(0, doggoMenuControl) and isDog() then
 			WarMenu.OpenMenu('dogmenu')
 		end
 		if emotePlaying then
