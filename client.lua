@@ -117,3 +117,9 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+
+RegisterCommand('dogmenu', function(source, args, raw)
+	if not WarMenu.IsMenuOpened('dogmenu') and isDog() then
+		WarMenu.OpenMenu('dogmenu')
+	end
+end, false)
